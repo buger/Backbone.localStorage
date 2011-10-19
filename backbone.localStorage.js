@@ -23,8 +23,8 @@ function guid() {
 // with a meaningful name, like the name you'd give a table.
 window.BackboneStore = function(name) {
   this.name = name;
-  var store = store.get(this.name);
-  this.records = (store && store.split(",")) || [];
+  var s = store.get(this.name);
+  this.records = (s && s.split(",")) || [];
 };
 
 _.extend(BackboneStore.prototype, {
@@ -38,7 +38,7 @@ _.extend(BackboneStore.prototype, {
   // have an id of it's own.
   create: function(model) {
     if (!model.id) model.id = model.attributes.id = guid();
-    store.setItem(this.name+"-"+model.id, model);
+    store.set(this.name+"-"+model.id, model);
     this.records.push(model.id.toString());
     this.save();
     return model;
